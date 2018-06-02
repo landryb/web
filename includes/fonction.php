@@ -2,7 +2,6 @@
 
 defined( '_PHP_CONGES' ) or die( 'Restricted access' );
 
-include_once INCLUDE_PATH .'fonction_config.php';
 include_once INCLUDE_PATH .'lang_profile.php';
 //better to include_once plugins at the end : see bottom function
 //include_once INCLUDE_PATH .'plugins.php';
@@ -112,31 +111,6 @@ function header_menu($info, $title = '', $additional_head = '' ) {
 
     include ROOT_PATH .'version.php';
     include_once TEMPLATE_PATH . 'menu_header.php';
-}
-
-function bouton($name, $icon, $link, $active = false)
-{
-    $name = str_replace('"','\\"',$name);
-    $icon = str_replace('"','\\"',$icon);
-    $link = str_replace('"','\\"',$link);
-    echo '<div class="button_div'.($active?' active':'').'">
-            <a href="'. $link .'">
-                <img src="'. IMG_PATH . $icon.'" title="'.$name.'" alt="'.$name.'">
-                <span>'.$name.'</span>
-            </a>
-        </div>';
-}
-
-function bouton_popup($name, $icon, $link, $popup_name, $size_x, $size_y, $active = false)
-{
-    $name = str_replace('"','\\"',$name);
-
-    echo '<div class="button_div'.($active?' active':'').'">
-            <a href="#" onClick="OpenPopUp(\''. $link .'\',\''.$popup_name.'\','.$size_x.','.$size_y.');">
-                <img src="'. IMG_PATH . $icon.'" title="'.$name.'" alt="'.$name.'">
-                <span>'.$name.'</span>
-            </a>
-        </div>';
 }
 
 function bottom() {
