@@ -18,7 +18,7 @@ class CreneauRepository extends \LibertAPI\Tools\Libraries\ARepository
     /**
      * @inheritDoc
      */
-    public function getOne(int $id) : AEntite
+    public function getOne($id) : AEntite
     {
         throw new \RuntimeException('#' . $id . ' is not a callable resource');
     }
@@ -34,7 +34,7 @@ class CreneauRepository extends \LibertAPI\Tools\Libraries\ARepository
     final protected function getParamsConsumer2Storage(array $paramsConsumer) : array
     {
         $results = [];
-        if (!empty($paramsConsumer['planningId'])) {
+        if (array_key_exists('planningId', $paramsConsumer)) {
             $results['planning_id'] = (int) $paramsConsumer['planningId'];
         }
 
@@ -66,14 +66,13 @@ class CreneauRepository extends \LibertAPI\Tools\Libraries\ARepository
      * @throws MissingArgumentException Si un élément requis n'est pas présent
      * @throws \DomainException Si un élément de la ressource n'est pas dans le bon domaine de définition
      */
-    public function postList(array $data, AEntite $entite) : array
+    public function postList(array $data) : array
     {
         $postIds = [];
         $this->beginTransaction();
         foreach ($data as $creneau) {
             try {
-                $cloneEntite = clone $entite;
-                $postIds[] = $this->postOne($creneau, $cloneEntite);
+                $postIds[] = $this->postOne($creneau);
             } catch (\Exception $e) {
                 $this->rollback();
                 throw $e;
@@ -145,11 +144,11 @@ class CreneauRepository extends \LibertAPI\Tools\Libraries\ARepository
      */
     final protected function setWhere(array $parametres)
     {
-        if (!empty($parametres['id'])) {
+        if (array_key_exists('id', $parametres)) {
             $this->queryBuilder->andWhere('creneau_id = :id');
             $this->queryBuilder->setParameter(':id', (int) $parametres['id']);
         }
-        if (!empty($parametres['planning_id'])) {
+        if (array_key_exists('planning_id', $parametres)) {
             $this->queryBuilder->andWhere('planning_id = :planningId');
             $this->queryBuilder->setParameter(':planningId', (int) $parametres['planning_id']);
         }
@@ -158,7 +157,7 @@ class CreneauRepository extends \LibertAPI\Tools\Libraries\ARepository
     /**
      * @inheritDoc
      */
-    public function deleteOne(AEntite $entite) : int
+    public function deleteOne(int $id) : int
     {
         throw new \RuntimeException('Action is forbidden');
     }

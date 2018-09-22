@@ -29,17 +29,6 @@ abstract class ARestController extends AController
      */
     protected $currentAdmin;
 
-    /**
-     * Init des tests
-     */
-    public function beforeTestMethod($method)
-    {
-        parent::beforeTestMethod($method);
-        $this->currentEmploye = new UtilisateurEntite(['id' => 'user', 'isResp' => false, 'isHr' => false, 'isAdmin' => false]);
-        $this->currentResponsable = new UtilisateurEntite(['id' => 'resp', 'isResp' => true, 'isHr' => false, 'isAdmin' => false]);
-        $this->currentAdmin = new UtilisateurEntite(['id' => 'admin', 'isResp' => true, 'isHr' => true, 'isAdmin' => true]);
-    }
-
     /*************************************************
      * GET
      *************************************************/
